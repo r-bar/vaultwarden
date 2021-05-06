@@ -11,3 +11,9 @@ steps:
     commands:
       - echo hello
       - echo world
+
+  - name: build
+    image: rustdocker/rustup
+    commands:
+      - rustup toolchain install $(cat rust-toolchain)
+      - cargo check --features sqlite
