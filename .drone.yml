@@ -12,12 +12,6 @@ volumes:
       path: /var/run/docker.sock
 
 steps:
-  - name: greeting
-    image: alpine
-    commands:
-      - echo hello
-      - echo world
-
   - name: test
     image: rustdocker/rustup
     environment:
@@ -25,8 +19,7 @@ steps:
     commands:
       - rustup toolchain install $(cat rust-toolchain)
       - cargo test --features sqlite
-    depends_on:
-      - greeting
+    depends_on: []
 
 
   - name: build-docker-image
@@ -36,8 +29,7 @@ steps:
         path: /var/run/docker.sock
     commands:
       - docker build -f docker/amd64/Dockerfile .
-    depends_on:
-      - greeting
+    depends_on: []
 
 
   - name: build-docker-image-alpine
@@ -47,5 +39,4 @@ steps:
         path: /var/run/docker.sock
     commands:
       - docker build -f docker/amd64/Dockerfile.alpine .
-    depends_on:
-      - greeting
+    depends_on: []
