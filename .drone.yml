@@ -1,11 +1,9 @@
 kind: pipeline
 name: build
 
-
 trigger:
   event:
     - push
-
 
 steps:
   - name: greeting
