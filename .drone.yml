@@ -19,8 +19,8 @@ steps:
     commands:
       - rustup toolchain install $(cat rust-toolchain)
       - cargo test --features sqlite
-    depends_on: []
-
+    depends_on:
+      - clone
 
   - name: build-docker-image
     image: docker
@@ -29,7 +29,8 @@ steps:
         path: /var/run/docker.sock
     commands:
       - docker build -f docker/amd64/Dockerfile .
-    depends_on: []
+    depends_on:
+      - clone
 
 
   - name: build-docker-image-alpine
@@ -39,4 +40,5 @@ steps:
         path: /var/run/docker.sock
     commands:
       - docker build -f docker/amd64/Dockerfile.alpine .
-    depends_on: []
+    depends_on:
+      - clone
