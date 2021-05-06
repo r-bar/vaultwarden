@@ -15,5 +15,5 @@ steps:
   - name: build
     image: rustdocker/rustup
     commands:
-      - rustup toolchain install $(cat rust-toolchain)
+      - /root/.cargo/bin/rustup toolchain install $(cat rust-toolchain)
       - cargo check --features sqlite
