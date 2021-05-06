@@ -12,10 +12,32 @@ steps:
       - echo hello
       - echo world
 
-  - name: build
+  - name: test
     image: rustdocker/rustup
     environment:
       PATH: /root/.cargo/bin:/usr/bin:/bin:/usr/sbin:/sbin
     commands:
       - rustup toolchain install $(cat rust-toolchain)
-      - cargo check --features sqlite
+      - cargo test --features sqlite
+    depends_on:
+      - greeting
+
+
+  - name: build-docker-image
+    image: docker
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    commands:
+      - docker build -f docker/amd64/Dockerfile
+    depends_on:
+      - greeting
+
+
+  - name: build-docker-image-alpine
+    image: docker
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    commands:
+      - docker build -f docker/amd64/Dockerfile.alpine
+    depends_on:
+      - greeting
