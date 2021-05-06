@@ -6,18 +6,18 @@ trigger:
     - push
 
 
-volumes:
-  - name: docker-socket
-    host:
-      path: /var/run/docker.sock
+#volumes:
+#  - name: docker-socket
+#    host:
+#      path: /var/run/docker.sock
 
 steps:
 
   - name: build-docker-image
     image: docker
-    volumes:
-      - name: docker-socket
-        path: /var/run/docker.sock
+    #volumes:
+    #  - name: docker-socket
+    #    path: /var/run/docker.sock
     commands:
       - docker build -f docker/amd64/Dockerfile .
     depends_on:
@@ -26,9 +26,9 @@ steps:
 
   - name: build-docker-image-alpine
     image: docker
-    volumes:
-      - name: docker-socket
-        path: /var/run/docker.sock
+    #volumes:
+    #  - name: docker-socket
+    #    path: /var/run/docker.sock
     commands:
       - docker build -f docker/amd64/Dockerfile.alpine .
     depends_on:
