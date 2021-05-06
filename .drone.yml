@@ -14,7 +14,7 @@ trigger:
 steps:
 
   - name: build-docker-image
-    image: docker
+    image: docker:dind
     #volumes:
     #  - name: docker-socket
     #    path: /var/run/docker.sock
@@ -25,7 +25,7 @@ steps:
 
 
   - name: build-docker-image-alpine
-    image: docker
+    image: docker:dind
     #volumes:
     #  - name: docker-socket
     #    path: /var/run/docker.sock
