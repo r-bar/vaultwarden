@@ -12,15 +12,6 @@ volumes:
       path: /var/run/docker.sock
 
 steps:
-  - name: test
-    image: rustdocker/rustup
-    environment:
-      PATH: /root/.cargo/bin:/usr/bin:/bin:/usr/sbin:/sbin
-    commands:
-      - rustup toolchain install $(cat rust-toolchain)
-      - cargo test --features sqlite
-    depends_on:
-      - clone
 
   - name: build-docker-image
     image: docker
