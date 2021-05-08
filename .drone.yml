@@ -46,8 +46,11 @@ name: merge-upstream
 trigger:
   event:
     - cron
+    - promote
   cron:
     - hourly
+  target:
+    - production
 
 
 volumes:
