@@ -11,6 +11,10 @@ volumes:
     host:
       path: /var/run/docker.sock
 
+  - name: upstream
+    temp: {}
+
+
 steps:
 
   - name: build-docker-image
@@ -23,7 +27,6 @@ steps:
     depends_on:
       - clone
 
-
   - name: build-docker-image-alpine
     image: docker
     volumes:
@@ -33,3 +36,31 @@ steps:
       - docker build -f docker/amd64/Dockerfile.alpine .
     depends_on:
       - clone
+
+
+---
+kind: pipeline
+name: merge-upstream
+
+
+trigger:
+  event:
+    - cron
+  cron:
+    - hourly
+
+
+volumes:
+  - name: upstream
+    temp: {}
+
+steps:
+
+  - name: merge-upstream
+    image: alpine
+    commands:
+      - git remote add upstream https://github.com/dani-garcia/vaultwarden.git
+      - git fetch upstream
+      - git checkout master
+      - git merge --ff upstream/master
+      - git push
