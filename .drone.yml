@@ -45,6 +45,7 @@ name: merge-upstream
 
 trigger:
   event:
+    - push
     - cron
     - promote
   cron:
